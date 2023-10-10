@@ -1,0 +1,12 @@
+apiVersion : apps/v1
+kind: Pod
+metadata:
+  name: testingpod
+  labels:
+    app: demoapp
+spec:
+  containers:
+    - name: demo
+      image: balajidevops1/cicd-projects:7
+      ports:
+        - containerPort: 8080
