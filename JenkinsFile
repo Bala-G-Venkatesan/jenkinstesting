@@ -1,0 +1,33 @@
+pipeline{
+    agent{
+        any
+    }
+    stages{
+        stage ('Checkout'){
+            steps{
+                git branch: 'main' , url:'https://github.com/Bala-G-Venkatesan/jenkinstesting.git'
+                echo "Passed"
+            }
+        }
+        stage ('commiting the deploymentfile'){
+            environment{
+                GIT_HUB_USERNAME = "Bala-G-Venkatesan"
+                GIT_HUB_REPOSITORY = "jenkinstesting" 
+                GITHUB_TOKEN = credentials('github')
+
+            }
+            steps{
+                sh
+                '''
+                cp sourcecode.yaml deployment.yaml
+                sed -i "s/tagname/${BUILD_NUMBER}/g" deployment.yaml
+                '''
+                git config user.email "balamech769806@gmail.com"
+                git config user.name "V Balaji"
+                git add deployment.yaml
+                git commit -m "Updated Manifest file"
+                git push https://${GITHUB_TOKEN}@github.com/${GIT_HUB_USERNAME}/${GIT_HUB_REPOSITORY} HEAD:main
+            }
+        }
+    }
+}
