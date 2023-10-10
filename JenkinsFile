@@ -17,13 +17,13 @@ pipeline{
 
             }
             steps{
-                sh
-                '''
+                sh'''
+                cp deployment.yaml deploymentbackup.yaml
                 cp sourcecode.yaml deployment.yaml
                 sed -i "s/tagname/${BUILD_NUMBER}/g" deployment.yaml
                 git config user.email "balamech769806@gmail.com"
                 git config user.name "V Balaji"
-                git add deployment.yaml
+                git add .
                 git commit -m "Updated Manifest file"
                 git push https://${GITHUB_TOKEN}@github.com/${GIT_HUB_USERNAME}/${GIT_HUB_REPOSITORY} HEAD:main
                 '''
