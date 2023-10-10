@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: demo
-      image: balajidevops1/cicd-projects:8
+      image: balajidevops1/cicd-projects:7
       ports:
         - containerPort: 8080
