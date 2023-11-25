@@ -4,16 +4,26 @@ pipeline {
         jdk 'jdk17'
         nodejs 'node16'
     }
+    environment {
+        SCANNER_HOME=tool 'sonar-scanner'
+    }
     stages {
         stage('Clean Workspace') {
             steps {
-                deleteDir()
+                cleanWS()
             }
         }
         stage('Git Checkout') {
             steps {
                 git branch:'main', url:'https://github.com/Aj7Ay/Netflix-clone.git'
 
+            }
+        }
+        stage('Scanning via Sonarqube') {
+            steps {
+                withSonarQubeEnv('sonar-scanner') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix -Dsonar.project.key=Netflix '''
+                }
             }
         }
         stage('Installing Dependency') {
