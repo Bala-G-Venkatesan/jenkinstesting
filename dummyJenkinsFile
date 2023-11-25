@@ -4,13 +4,10 @@ pipeline {
         jdk 'jdk17'
         nodejs 'node16'
     }
-    /*environment {
-        SCANNER_HOME=tool 'sonar-scanner'
-    }*/
     stages {
         stage('Clean Workspace') {
             steps {
-                cleanWS()
+                deleteDir()
             }
         }
         stage('Git Checkout') {
@@ -19,15 +16,6 @@ pipeline {
 
             }
         }
-        /*stage('Sonar Qube Analysis') {
-            steps {
-                withSonarQubeEnv('sonar-server') {
-                    sh """
-                    $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix -Dsonar.projectKey=Netflix
-                    """
-                } 
-            }
-        }*/
         stage('Installing Dependency') {
             steps {
                 sh 'npm install'
