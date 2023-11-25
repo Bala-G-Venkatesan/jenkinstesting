@@ -19,10 +19,10 @@ pipeline {
 
             }
         }
-        stage('Scanning via Sonarqube') {
+       stage('Scanning via Sonarqube') {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix -Dsonar.project.key=Netflix '''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix -Dsonar.projectKey=Netflix '''
                 }
             }
         }
