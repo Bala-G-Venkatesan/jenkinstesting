@@ -22,7 +22,7 @@ pipeline {
         stage('Scanning via Sonarqube') {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix -Dsonar.project.Key=Netflix '''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix -Dsonar.project.key=Netflix '''
                 }
             }
         }
