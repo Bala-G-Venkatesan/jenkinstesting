@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clean Workspace') {
             steps {
-                deleteDir()
+                cleanWS()
             }
         }
         stage('Git Checkout') {
@@ -19,7 +19,7 @@ pipeline {
 
             }
         }
-       stage('Scanning via Sonarqube') {
+        stage('Scanning via Sonarqube') {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix -Dsonar.projectKey=Netflix '''
@@ -30,17 +30,15 @@ pipeline {
             steps {
                 sh 'npm install'
             }
-        } 
+        }
     }
     post {
      always {
         emailext attachLog: true,
-            subject: "${currentBuild.result}",
-            body: "Project: ${env.JOB_NAME}<br/>" +
-                "Build Number: ${env.BUILD_NUMBER}<br/>" +
-                "URL: ${env.BUILD_URL}<br/>",
-            to: 'bvenkat769806@gmail.com',
-            attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
+        subject: "'${currentBuild.result}'",
+        body: "Project: ${env.JOB_NAME}<br/>" + "Build Number: ${env.BUILD_NUMBER}<br/>" + "Build URL: ${env.BUILD_URL}<br/>",
+        to: 'bvenkat769806@gmail.com',
+        attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
         }
     }
-} 
+}
