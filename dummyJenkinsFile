@@ -29,7 +29,7 @@ pipeline {
         stage('Quality Gates') {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsID: 'sonarqube'
+                    waitForQualityGate abortPipeline: false
                 }
             }
         }
