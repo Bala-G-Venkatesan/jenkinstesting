@@ -19,7 +19,7 @@ pipeline {
 
             }
         }
-        /*stage('Scanning via Sonarqube') {
+        stage('Scanning via Sonarqube') {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix -Dsonar.projectKey=Netflix '''
@@ -41,7 +41,7 @@ pipeline {
         stage('DependencyCheck') {
             steps {
                 dependencyCheck additionalArguments: '--scan . --disableYarnAudit --disableNodeAudit', odcInstallation: 'Dependency-Check'
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
 
@@ -49,7 +49,7 @@ pipeline {
             steps {
                 sh "trivy fs . > trivyfs.txt"
             }
-        }*/
+        }
         stage('Build Docker Image and Push') {
             steps {
                 script {
