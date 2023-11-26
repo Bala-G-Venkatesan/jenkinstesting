@@ -53,7 +53,7 @@ pipeline {
         stage('Build Docker Image and Push') {
             steps {
                 script {
-                    withDockerRegistry(credentialsID: 'dockerhub', toolName: 'docker'){
+                    withDockerRegistry(url: 'https://index.docker.io/v1/',credentialsID: 'dockerhub'){
                         sh 'docker build --build-arg TMDB_V3_API_KEY=a22e327c451fde712026997d83f4771a -t netflix .'
                         sh 'docker tag netflix balajidevops1/netflix-clone:latest'
                         sh 'docker push balajidevops1/netflix-clone:latest'
