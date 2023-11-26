@@ -43,10 +43,11 @@ pipeline {
                 dependencyCheck additionalArguments: '--scan . --disableYarnAudit --disableNodeAudit', odcInstallation: 'Dependency-Check'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
-            stage('Trivy File Scan') {
-                steps {
-                    sh "trivy fs . > trivyfs.txt"
-                }
+        }
+
+        stage('Trivy File Scan') {
+            steps {
+                sh "trivy fs . > trivyfs.txt"
             }
         }
     }
