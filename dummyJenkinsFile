@@ -64,7 +64,7 @@ pipeline {
         }
         stage('Image Scan Using Trivy') {
             steps {
-                sh 'trivy image balajidevops1/netflix-clone:latest'
+                sh 'trivy image balajidevops1/netflix-clone:latest > trivyimage.txt'
             }
         }  
     }
